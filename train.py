@@ -129,9 +129,8 @@ def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # I no gpu, use cpu
 
     # Select the model that needs to be trained.
-    #model = Model(num_classes=19, size_img=size).cuda() # 
-    model = Model(block=ResidualBlock, blocks = [2, 2, 2, 2], in_channels = 3, classes = 19, power = 6).to(device) # U-net with ResNet and attention
-    #model = Model(in_channels=3, num_classes=19, initial_power=6).cuda() # Baseline model
+    model = Model(block=ResidualBlock, blocks = [2, 2, 2, 2], in_channels = 3, classes = 19, power = 3).to(device) # U-net with ResNet and attention
+    #model = Model(in_channels=3, num_classes=19, initial_power=6).cuda() # Baseline model or U-net model with EfficientNEt as backbone. 
     
     # Initialize the model
     def init_weights(m):
