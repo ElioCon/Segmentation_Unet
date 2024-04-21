@@ -13,17 +13,11 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import StepLR
 
-#import segmentation_models_pytorch as smp
-
 import wandb
 
 from model import Model
 from argparse import ArgumentParser
 import utils
-
-#import albumentations as A
-#import cv2
-#from albumentations.pytorch import ToTensorV2
 
 def get_arg_parser():
     parser = ArgumentParser()
@@ -76,24 +70,6 @@ class EarlyStopper:
                     print("The validation loss is far away from validation error for multiple epochs.\n")
                     return True 
         return False
-
-'''
-class ImageDataset:
-    def __init__(self, images_filepaths, transform=None):
-        self.images_filepaths = images_filepaths
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.images_filepaths)
-
-    def __getitem__(self, idx):
-        image_filepath = self.images_filepaths[idx]
-        image = cv2.imread(image_filepath)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        if self.transform is not None:
-            image = self.transform(image=image)["image"]
-        return image
-'''
 
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride = 1, downsample = None):
