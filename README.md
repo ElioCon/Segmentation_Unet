@@ -15,3 +15,18 @@ There are multiple types of models:
 - U-net with the backbone of the EfficientNet. This model uses MBConv block at the encoder side. 
 
 Required libraries:
+matplotlib.pyplot
+numpy
+torchvision
+torchvision.transforms.v2
+torchvision
+argparse
+torch.optim.lr_scheduler
+torch
+gc
+os
+random
+pdb
+collections
+ matplotlib.colors
+math
