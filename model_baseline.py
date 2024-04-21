@@ -1,9 +1,6 @@
 import torch
 import torch.nn as nn
 
-""" segmentation model example
-"""
-
 # create Segmentation model
 class Model(nn.Module):
     def __init__(self, in_channels=3, classes=19): 
