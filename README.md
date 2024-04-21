@@ -16,7 +16,9 @@ There are multiple types of models:
 - U-net with the backbone of the EfficientNet. This model uses MBConv block at the encoder side.
 
 ### Improvements over baseline:
-- Addition of Early stopping
+- Xavier weights initialization adjusted to ReLU layers.
+- Weights normalization at each layer using batch normalization. 
+- Addition of early stopping
 - Addition of drop out layers
 - Addition of scheduler to adjust the update step during the optimization based on the number of epochs trained. 
 
