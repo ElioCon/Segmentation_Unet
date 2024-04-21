@@ -97,21 +97,8 @@ class ResidualBlock(nn.Module):
         
         
 def main(args):
-    """define your model, trainingsloop optimitzer etc. here"""
-    
-    '''
-    train_transform = A.Compose([
-        A.RandomResizedCrop(224,224),
-        A.HorizontalFlip(p=0.5),
-        #A.RandomGamma(gamma_limit=(80, 120), eps=None, always_apply=False, p=0.5),
-        A.RandomBrightnessContrast (p=0.5),
-        A.CLAHE(clip_limit=4.0, tile_grid_size=(8, 8), always_apply=False, p=0.5),
-        A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=15, p=0.5),
-        A.RGBShift(r_shift_limit=15, g_shift_limit=15, b_shift_limit=15, p=0.5),
-        A.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-        ToTensorV2(),
-    ])
-    '''
+
+    # Define the iamge size and the transforms.
     size = 256
     transform_train = transforms.Compose([
     transforms.Resize((size, size*2), interpolation=transforms.InterpolationMode.LANCZOS),
@@ -127,8 +114,6 @@ def main(args):
     ])
     # Data loading and applying transformation
     dataset_train = Cityscapes(args.data_path, split='train', mode='fine', target_type='semantic', transform=transform_train, target_transform=target_transforms)
-    #dataset_val = Cityscapes(args.data_path, split='val', mode='fine', target_type='semantic', transform=transform_val, target_transform=target_transforms)
-    #dataset_train = ImageDataset(images_filepaths=args.data_path, transform=train_transform)
 
     # Split training set into training and validation sets
     split = 0.8
@@ -139,20 +124,14 @@ def main(args):
     # Create data loaders
     trainloader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4, pin_memory=False)
     validationloader = DataLoader(val_dataset, batch_size=8, shuffle=True, num_workers=4, pin_memory=False)
-    
-    # Set W&B access
-    #wandb.login(key='85a151911d232f1466f01b9e6b10930c70bee464',relogin=True)
-    #wandb.init(
-    #    project="CNN_ctyscp_U-net",
-    #)
 
     # Set the device 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # I no gpu, use cpu
 
-    #model = Model(num_classes=19, size_img=size).cuda()
-    model = Model(block=ResidualBlock, blocks = [2, 2, 2, 2], in_channels = 3, classes = 19, power = 6).to(device)
-    #model = smp.Unet(encoder_name='efficientnet-b1', in_channels=3, classes=19, activation=None).to(DEVICE)
-    #model = Model(in_channels=3, num_classes=19, initial_power=6).cuda()
+    # Select the model that needs to be trained.
+    #model = Model(num_classes=19, size_img=size).cuda() # 
+    model = Model(block=ResidualBlock, blocks = [2, 2, 2, 2], in_channels = 3, classes = 19, power = 6).to(device) # U-net with ResNet and attention
+    #model = Model(in_channels=3, num_classes=19, initial_power=6).cuda() # Baseline model
     
     # Initialize the model
     def init_weights(m):
