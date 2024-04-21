@@ -12,7 +12,12 @@ More convinient method to run the models locally is by running the notebook Mode
 There are multiple types of models: 
 - Baseline, a simple U-net model. This model already includes early stopping and dropout layers. 
 - U-net with the backbone of ResNet and with addition of the attention layers. This model uses ResidualBlock in train.py and attention mechanism.
-- U-net with the backbone of the EfficientNet. This model uses MBConv block at the encoder side. 
+- U-net with the backbone of the EfficientNet. This model uses MBConv block at the encoder side.
+
+Improvements over baseline:
+- Addition of Early stopping
+- Addition of drop out layers
+- Addition of scheduler to adjust the update step during the optimization based on the number of epochs trained. 
 
 Required libraries:
 matplotlib.pyplot
