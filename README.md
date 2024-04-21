@@ -1,6 +1,10 @@
 # Segmentation_Unet
 The semantic segmentation project using CityScapes dataset. 
 
+Submission information: 
+- Codalab username: Dmitry
+- Email: d.stepanov@student.tue.nl
+
 In order to run the model, use train.py and the model file model_....py file. Change the model file name to model.py and uncomment the desired model in the train.py. Run train.py to train the model. 
 
 More convinient method to run the models locally is by running the notebook Models.ipynb. Follow the instructions in the notebook to test all the provided models. 
